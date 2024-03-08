@@ -5,6 +5,10 @@
 Headless Vue 3 notification library with Tailwind CSS.
 
 Inspired by [NuxtUI Notifications](https://ui.nuxt.com/)
+![Screenshot of a notification (1)](https://github.com/devstack-be/devstack-notify/blob/main/playground/public/teasing_1.png)
+![Screenshot of a notification (2)](https://github.com/devstack-be/devstack-notify/blob/main/playground/public/teasing_2.png)
+![Screenshot of a notification (3)](https://github.com/devstack-be/devstack-notify/blob/main/playground/public/teasing_3.png)
+
 ## 🌟 Features
 
 - Vue 3 composition API support
