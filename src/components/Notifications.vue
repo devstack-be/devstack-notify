@@ -2,9 +2,9 @@
 import { computed, defineComponent, onMounted } from 'vue'
 import type { PropType } from 'vue'
 import { twJoin, twMerge } from 'tailwind-merge'
+import type { Config } from '../types'
 import { useToast } from '@/composables/useToast'
 import Notification from '@/components/Notification.vue'
-import type { Config } from '@/types/notification'
 import { useNotificationsStore } from '@/composables/notificationsStore'
 
 export default defineComponent({

@@ -1,4 +1,4 @@
-import type { Notification } from '@/types/notification'
+import type { Notification } from '../types'
 import { useNotificationsStore } from '@/composables/notificationsStore'
 
 export function useToast() {
