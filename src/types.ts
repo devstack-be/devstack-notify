@@ -34,7 +34,7 @@ interface ConfigTransition {
   leaveToClass: string
 }
 
-interface ConfigCloseButton {
+/* interface ConfigCloseButton {
   icon: string
   color: 'gray'
   variant: 'link'
@@ -44,7 +44,7 @@ interface ConfigCloseButton {
 interface ConfigActionButton {
   size: 'xs'
   color: 'white'
-}
+} */
 
 interface ConfigDefault {
   color: string

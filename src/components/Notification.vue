@@ -3,8 +3,8 @@ import { computed, defineComponent, onMounted, onUnmounted, ref, watchEffect } f
 import type { PropType } from 'vue'
 import { twJoin, twMerge } from 'tailwind-merge'
 import { Icon as Iconify } from '@iconify/vue'
+import type { NotificationAction, NotificationColor } from '../types'
 import { useTimer } from '@/composables/useTimer'
-import type { NotificationAction, NotificationColor } from '@/types/notification'
 import { useNotificationsStore } from '@/composables/notificationsStore'
 
 interface MergedProps {
