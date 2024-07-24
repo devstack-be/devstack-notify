@@ -23,5 +23,6 @@
   "include": [
     "./src/**/*.ts",
     "./src/**/*.vue",
-    "src/types.ts"]
+    "src/types.ts"],
+  "exclude": ["playground/**/*"]
 }
