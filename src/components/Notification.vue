@@ -175,6 +175,7 @@ export default defineComponent({
     onUnmounted(() => {
       if (timer)
         timer.stop()
+      emit('close')
     })
 
     return {
