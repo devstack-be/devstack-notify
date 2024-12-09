@@ -1,7 +1,7 @@
 {
   "name": "devstack-notify",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Headless Vue 3 notification library with Tailwind CSS.",
   "author": {
     "name": "Devstack <hello@devstack.be>",
@@ -50,10 +50,10 @@
     "@types/node": "^22.10.1",
     "@vitejs/plugin-vue": "^5.2.1",
     "eslint": "^9.16.0",
-    "typescript": "5.4.2",
+    "typescript": "~5.6.2",
     "vite": "^6.0.3",
     "vite-plugin-dts": "^4.3.0",
-    "vue-tsc": "1.8.5",
+    "vue-tsc": "^2.1.10",
     "vue-use-state-effect": "^0.1.4"
   }
 }
