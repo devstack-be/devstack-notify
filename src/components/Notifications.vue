@@ -1,11 +1,11 @@
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue'
 import type { PropType } from 'vue'
-import { twJoin, twMerge } from 'tailwind-merge'
 import type { Config } from '../types'
-import { useToast } from '@/composables/useToast'
 import Notification from '@/components/Notification.vue'
 import { useNotificationsStore } from '@/composables/notificationsStore'
+import { useToast } from '@/composables/useToast'
+import { twJoin, twMerge } from 'tailwind-merge'
+import { computed, defineComponent, onMounted } from 'vue'
 
 export default defineComponent({
   components: {

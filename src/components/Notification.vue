@@ -1,20 +1,20 @@
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import type { PropType } from 'vue'
-import { twJoin, twMerge } from 'tailwind-merge'
-import { Icon as Iconify } from '@iconify/vue'
 import type { NotificationAction, NotificationColor } from '../types'
-import { useTimer } from '@/composables/useTimer'
 import { useNotificationsStore } from '@/composables/notificationsStore'
+import { useTimer } from '@/composables/useTimer'
+import { Icon as Iconify } from '@iconify/vue'
+import { twJoin, twMerge } from 'tailwind-merge'
+import { computed, defineComponent, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 
-interface MergedProps {
+export interface mergedNotificationPropsInterface {
   timeout: number
   color: NotificationColor
   icon: string | null
   closeIcon: string
 }
 
-function mergeProps(props: any, defaultConfig: any): MergedProps {
+function mergeProps(props: any, defaultConfig: any): mergedNotificationPropsInterface {
   return {
     timeout: props.timeout != null ? props.timeout : defaultConfig.timeout,
     color: props.color != null ? props.color : defaultConfig.color,
@@ -79,10 +79,10 @@ export default defineComponent({
     const notificationsStore = useNotificationsStore()
     const ui = computed(() => notificationsStore.config)
     // Merge props with config
-    const mergedProps = mergeProps(props, ui.value.default)
+    const mergedNotificationProps = mergeProps(props, ui.value.default)
 
     let timer: any = null
-    const remaining = ref(mergedProps.timeout)
+    const remaining = ref(mergedNotificationProps.timeout)
 
     // Color variants
     const BgColorVariants = {
@@ -113,19 +113,19 @@ export default defineComponent({
     const progressClass = computed(() => {
       return twJoin(
         ui.value.progress,
-        `${BgColorVariants[mergedProps.color]}`,
+        `${BgColorVariants[mergedNotificationProps.color]}`,
       )
     })
 
     const progressStyle = computed(() => {
-      const remainingPercent = remaining.value / mergedProps.timeout * 100
+      const remainingPercent = remaining.value / mergedNotificationProps.timeout * 100
       return { width: `${remainingPercent || 0}%` }
     })
 
     const iconClass = computed(() => {
       return twJoin(
         ui.value.icon,
-        `${textColorVariants[mergedProps.color]}`,
+        `${textColorVariants[mergedNotificationProps.color]}`,
       )
     })
 
@@ -160,12 +160,12 @@ export default defineComponent({
       emit('close')
     }
     onMounted(() => {
-      if (!mergedProps.timeout)
+      if (!mergedNotificationProps.timeout)
         return
 
       timer = useTimer(() => {
         onClose()
-      }, mergedProps.timeout)
+      }, mergedNotificationProps.timeout)
 
       watchEffect(() => {
         remaining.value = timer.remaining.value
@@ -180,7 +180,7 @@ export default defineComponent({
 
     return {
       ui,
-      mergedProps,
+      mergedNotificationProps,
       wrapperClass,
       progressClass,
       progressStyle,
@@ -206,7 +206,7 @@ export default defineComponent({
     >
       <div :class="[ui.container, ui.rounded, ui.ring]">
         <div class="flex" :class="[ui.padding, ui.gap, { 'items-start': description || $slots.description, 'items-center': !description && !$slots.description }]">
-          <Iconify v-if="mergedProps.icon" :icon="mergedProps.icon" :class="iconClass" />
+          <Iconify v-if="mergedNotificationProps.icon" :icon="mergedNotificationProps.icon" :class="iconClass" />
           <div :class="ui.inner">
             <p v-if="(title || $slots.title)" :class="ui.title">
               <slot name="title" :title="title">
@@ -231,11 +231,11 @@ export default defineComponent({
               </Component>
             </template>
             <button v-if="closeButton" class="inline-flex items-center font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150 disabled:opacity-25 focus:outline-0" color="invisible" aria-label="Close" @click.stop="onClose">
-              <Iconify :icon="mergedProps.closeIcon ? mergedProps.closeIcon : 'heroicons:x-mark'" class="w-5 h-5 text-gray-500 hover:text-gray-400 dark:text-gray-700" />
+              <Iconify :icon="mergedNotificationProps.closeIcon ? mergedNotificationProps.closeIcon : 'heroicons:x-mark'" class="w-5 h-5 text-gray-500 hover:text-gray-400 dark:text-gray-700" />
             </button>
           </div>
         </div>
-        <div v-if="mergedProps.timeout" :class="progressClass" :style="progressStyle" />
+        <div v-if="mergedNotificationProps.timeout" :class="progressClass" :style="progressStyle" />
       </div>
     </div>
   </Transition>

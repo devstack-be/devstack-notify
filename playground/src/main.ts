@@ -1,10 +1,10 @@
-import './assets/base.css'
+import { createPinia } from 'pinia'
 
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import { createRouter, createWebHistory } from 'vue-router'
 import TailStack from '../..'
 import App from './App.vue'
+import './assets/base.css'
 
 const routes = [
   { path: '/', component: () => import('./pages/home.vue') },
