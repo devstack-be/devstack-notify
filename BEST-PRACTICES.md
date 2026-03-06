@@ -2,7 +2,7 @@
 
 ## 🎯 Installation & Setup
 
-### 1. Install Pinia Explicitly
+### 1. Install Pinia in Your App
 
 ✅ **DO:**
 ```js
@@ -14,13 +14,7 @@ app.use(createPinia())
 app.use(Notifications())
 ```
 
-❌ **DON'T:**
-```js
-// Avoid auto-install if you're using Pinia for other things
-app.use(Notifications({ createPiniaInstance: true }))
-```
-
-**Why:** Better control over your Pinia instance and avoids potential conflicts.
+**Why:** `pinia` is a peer dependency — the host app must provide a single shared instance. Without `app.use(createPinia())`, the store will throw `getActivePinia() was called but there was no active Pinia`.
 
 ### 2. Configure Tailwind CSS 4
 

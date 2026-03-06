@@ -12,7 +12,7 @@ import Notifications from 'devstack-notify'
 app.use(Notifications)
 ```
 
-**After (Recommended):**
+**After:**
 ```js
 import { createPinia } from 'pinia'
 import Notifications from 'devstack-notify'
@@ -21,13 +21,7 @@ app.use(createPinia())
 app.use(Notifications())
 ```
 
-**Or (Auto-install Pinia):**
-```js
-import Notifications from 'devstack-notify'
-app.use(Notifications({ createPiniaInstance: true }))
-```
-
-**Reason:** The plugin no longer automatically creates a Pinia instance to avoid conflicts with existing Pinia installations.
+**Reason:** `pinia`, `vue` and `@vueuse/core` are now `peerDependencies`. The host app must provide them to ensure a single shared instance.
 
 #### 2. TypeScript Types
 

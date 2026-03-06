@@ -33,15 +33,9 @@ or
 npm i devstack-notify
 ```
 
-### With Pinia (Recommended)
+### Setup
 
-This package uses Pinia for state management. You need to install Pinia in your project first:
-
-```bash
-yarn add pinia
-```
-
-Then register both Pinia and Notifications:
+This package requires Pinia. Install it and register both in your app:
 
 ```js
 import { createApp } from 'vue'
@@ -55,20 +49,6 @@ app.use(createPinia())
 app.use(Notifications())
 
 app.mount('#app')
-```
-
-### Without Pinia (Auto-install)
-
-If you don't want to manage Pinia yourself, you can let the plugin create an instance:
-
-```js
-import { createApp } from 'vue'
-import Notifications from 'devstack-notify'
-import App from './App.vue'
-
-createApp(App)
-  .use(Notifications({ createPiniaInstance: true }))
-  .mount('#app')
 ```
 
 ### Tailwind CSS 4 Configuration
