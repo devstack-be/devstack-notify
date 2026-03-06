@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Config, Notification } from '../types'
-import defaultConfig from '@/notification'
+import defaultConfig from '../notification'
 
 export const useNotificationsStore = defineStore('notificationsStore', () => {
   const notifications = ref<Notification[]>([])
@@ -18,8 +18,13 @@ export const useNotificationsStore = defineStore('notificationsStore', () => {
     config.value = mergeObjects(config.value, configToMerge)
   }
   const addNotification = (notification: Partial<Notification>) => {
+    // Use crypto.randomUUID for unique IDs (fallback for older browsers)
+    const id = typeof crypto !== 'undefined' && crypto.randomUUID 
+      ? crypto.randomUUID() 
+      : `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+    
     const body = {
-      id: Math.floor(Math.random() * 100) + new Date().getTime().toString(),
+      id,
       ...notification,
     }
     const index = notifications.value.findIndex((n: Notification) => n.id === body.id)

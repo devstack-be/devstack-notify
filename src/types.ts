@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 
 export interface NotificationAction {
   label: string
-  click?: Function
+  click?: () => void
   component: Component
 }
 
@@ -20,8 +20,8 @@ export interface Notification {
   icon?: string
   timeout: number
   actions?: NotificationAction[]
-  click?: Function
-  callback?: Function
+  click?: (notification: Notification) => void
+  callback?: () => void
   color?: NotificationColor
 }
 

@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import type { Config } from '../types'
-import Notification from '@/components/Notification.vue'
-import { useNotificationsStore } from '@/composables/notificationsStore'
-import { useToast } from '@/composables/useToast'
+import Notification from './Notification.vue'
+import { useNotificationsStore } from '../composables/notificationsStore'
+import { useToast } from '../composables/useToast'
 import { twJoin, twMerge } from 'tailwind-merge'
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 
 export default defineComponent({
   components: {
@@ -25,6 +25,7 @@ export default defineComponent({
   setup(props) {
     const toast = useToast()
     const notificationsStore = useNotificationsStore()
+    const isMounted = ref(false)
 
     const wrapperClass = computed(() => {
       return twMerge(twJoin(
@@ -37,20 +38,22 @@ export default defineComponent({
     onMounted(() => {
       if (props.config)
         notificationsStore.mergeConfig(props.config)
+      isMounted.value = true
     })
 
     return {
       toast,
       notificationsStore,
       wrapperClass,
+      isMounted,
     }
   },
 })
 </script>
 
 <template>
-  <Teleport to="body">
-    <div :class="wrapperClass" role="region" v-bind="$attrs">
+  <Teleport v-if="isMounted" to="body">
+    <div :class="wrapperClass" role="region" aria-label="Notifications" aria-live="polite" v-bind="$attrs">
       <div v-if="notificationsStore.notifications.length" class="px-4 sm:px-6 py-6 space-y-3 overflow-y-auto">
         <div v-for="notification of notificationsStore.notifications" :key="notification.id">
           <Notification

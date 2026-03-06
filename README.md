@@ -33,7 +33,33 @@ or
 npm i devstack-notify
 ```
 
-You can then register `Notifications` as a Vue plugin:
+### With Pinia (Recommended)
+
+This package uses Pinia for state management. You need to install Pinia in your project first:
+
+```bash
+yarn add pinia
+```
+
+Then register both Pinia and Notifications:
+
+```js
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import Notifications from 'devstack-notify'
+import App from './App.vue'
+
+const app = createApp(App)
+
+app.use(createPinia())
+app.use(Notifications())
+
+app.mount('#app')
+```
+
+### Without Pinia (Auto-install)
+
+If you don't want to manage Pinia yourself, you can let the plugin create an instance:
 
 ```js
 import { createApp } from 'vue'
@@ -41,9 +67,22 @@ import Notifications from 'devstack-notify'
 import App from './App.vue'
 
 createApp(App)
-  .use(Notifications)
+  .use(Notifications({ createPiniaInstance: true }))
   .mount('#app')
 ```
+
+### Tailwind CSS 4 Configuration
+
+⚠️ **Important**: Add this line to your main CSS file:
+
+```css
+/* src/app.css or src/index.css */
+@import "tailwindcss";
+
+@source "../../node_modules/devstack-notify";
+```
+
+See [TAILWIND.md](./TAILWIND.md) for more details.
 
 ## 🍞 How to use
 
@@ -81,6 +120,36 @@ toast.info({
    description: 'Small description' 
 })
 ```
+
+## TypeScript Support
+
+All types are exported from the package:
+
+```typescript
+import type { 
+  Notification, 
+  NotificationAction, 
+  NotificationColor,
+  Config 
+} from 'devstack-notify'
+
+// Use types in your code
+const notification: Partial<Notification> = {
+  title: 'Hello',
+  color: 'blue',
+  timeout: 3000
+}
+
+toast.add(notification)
+```
+
+## 📚 Documentation
+
+- **[Complete Examples](./EXAMPLES.md)** - Detailed usage examples and patterns
+- **[Best Practices](./BEST-PRACTICES.md)** - Recommended patterns and guidelines  
+- **[Tailwind Configuration](./TAILWIND.md)** - Required Tailwind CSS setup
+- **[Migration Guide](./MIGRATION.md)** - Upgrading from previous versions
+- **[Changelog](./CHANGELOG.md)** - Version history and changes
 
 ## Props
 

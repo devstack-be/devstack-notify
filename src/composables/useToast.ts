@@ -1,5 +1,5 @@
 import type { Notification } from '../types'
-import { useNotificationsStore } from '@/composables/notificationsStore'
+import { useNotificationsStore } from './notificationsStore'
 
 export function useToast() {
   const notificationsStore = useNotificationsStore()

@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import type { NotificationAction, NotificationColor } from '../types'
-import { useNotificationsStore } from '@/composables/notificationsStore'
-import { useTimer } from '@/composables/useTimer'
+import { useNotificationsStore } from '../composables/notificationsStore'
+import { useTimer } from '../composables/useTimer'
 import { Icon as Iconify } from '@iconify/vue'
 import { twJoin, twMerge } from 'tailwind-merge'
 import { computed, defineComponent, onMounted, onUnmounted, ref, watchEffect } from 'vue'
@@ -75,7 +75,7 @@ export default defineComponent({
     },
   },
   emits: ['close'],
-  setup(props, { emit }) {
+  setup(props: any, { emit }: { emit: any }) {
     const notificationsStore = useNotificationsStore()
     const ui = computed(() => notificationsStore.config)
     // Merge props with config
@@ -84,7 +84,7 @@ export default defineComponent({
     let timer: any = null
     const remaining = ref(mergedNotificationProps.timeout)
 
-    // Color variants
+    // Color variants - Detected by Tailwind when package path is added to content config
     const BgColorVariants = {
       blue: 'bg-blue-500 dark:bg-blue-400',
       red: 'bg-red-500 dark:bg-red-400',
@@ -167,8 +167,13 @@ export default defineComponent({
         onClose()
       }, mergedNotificationProps.timeout)
 
-      watchEffect(() => {
+      const stopWatch = watchEffect(() => {
         remaining.value = timer.remaining.value
+      })
+
+      // Cleanup watchEffect when component unmounts
+      onUnmounted(() => {
+        stopWatch()
       })
     })
 
@@ -230,7 +235,7 @@ export default defineComponent({
                 {{ action.label }}
               </Component>
             </template>
-            <button v-if="closeButton" class="inline-flex items-center font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150 disabled:opacity-25 focus:outline-0" color="invisible" aria-label="Close" @click.stop="onClose">
+            <button v-if="closeButton" class="inline-flex items-center font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150 disabled:opacity-25 focus:outline-0" color="invisible" :aria-label="`Close ${title || 'notification'}`" @click.stop="onClose">
               <Iconify :icon="mergedNotificationProps.closeIcon ? mergedNotificationProps.closeIcon : 'heroicons:x-mark'" class="w-5 h-5 text-gray-500 hover:text-gray-400 dark:text-gray-700" />
             </button>
           </div>
