@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
@@ -21,13 +21,14 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['vue'],
+      external: ['vue', 'pinia', '@vueuse/core', 'tailwind-merge', '@iconify/vue'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
         exports: 'named',
         globals: {
           vue: 'Vue',
+          pinia: 'Pinia',
         },
       },
     },
