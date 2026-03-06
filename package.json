@@ -1,7 +1,7 @@
 {
   "name": "devstack-notify",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Headless Vue 3 notification library with Tailwind CSS.",
   "author": {
     "name": "Devstack <hello@devstack.be>",
@@ -29,6 +29,10 @@
   "types": "dist/index.d.ts",
   "files": [
     "CHANGELOG.md",
+    "TAILWIND.md",
+    "MIGRATION.md",
+    "BEST-PRACTICES.md",
+    "EXAMPLES.md",
     "dist"
   ],
   "scripts": {
