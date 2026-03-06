@@ -2,11 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-03-06
+
+### 🔴 Breaking Changes
+
+- **Peer Dependencies**: `vue`, `pinia` and `@vueuse/core` are now `peerDependencies` instead of `dependencies`. The host app must provide these packages. This fixes the `getActivePinia() was called but there was no active Pinia` error caused by duplicate instances.
+- **Plugin Options removed**: `DevstackNotify()` no longer accepts options. The `createPiniaInstance` option has been removed. See [MIGRATION.md](./MIGRATION.md) for the upgrade path.
+
 ## [0.1.0] - 2026-03-06
 
 ### 🔴 Breaking Changes
 
-- **Pinia Installation**: The plugin no longer automatically creates a Pinia instance. Users must now install and configure Pinia themselves, or use the new `createPiniaInstance` option. See [MIGRATION.md](./MIGRATION.md) for details.
+- **Pinia Installation**: The plugin no longer automatically creates a Pinia instance. Users must now install and configure Pinia themselves. See [MIGRATION.md](./MIGRATION.md) for details.
 - **Function Types**: Replaced generic `Function` types with specific typed functions:
   - `NotificationAction.click`: `Function` → `() => void`
   - `Notification.click`: `Function` → `(notification: Notification) => void`
@@ -35,14 +42,12 @@ All notable changes to this project will be documented in this file.
 ### 🎨 Improvements
 
 - **Tailwind Safelist**: Added comments in source code to document required Tailwind safelist classes
-- **Plugin Options**: New `PluginOptions` interface for better plugin configuration
 - **Code Quality**: Improved TypeScript types throughout the codebase
 - **ID Collision Prevention**: Significantly reduced risk of notification ID collisions
 
 ### 📚 Documentation
 
 - Updated README with better installation instructions
-- Added plugin options documentation
 - Added TypeScript usage examples
 - Created comprehensive best practices guide
 - Added Tailwind CSS configuration requirements
